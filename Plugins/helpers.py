@@ -14,22 +14,22 @@ def HONE_KEYBOARD():
             types.InlineKeyboardButton(text="❲ النشر ❳", callback_data="NONE")
         ],
         [
-            types.InlineKeyboardButton(text="↫ : الحساب ❲ {} ❳".format(None if not status['account'] else data['account']['first_name']), url='t.me/None' if status['account'] == False else 't.me/{}'.format(data['account']['username']))
+            types.InlineKeyboardButton(text=": الحساب ❲ {} ❳".format(None if not status['account'] else data['account']['first_name']), url='t.me/None' if status['account'] == False else 't.me/{}'.format(data['account']['username']))
         ],
         [
-            types.InlineKeyboardButton(text="↫ الرسالة: ❲ {} ❳".format(None if not status['message'] else data['message'][0:6] + '..'), callback_data="SHOWMESSAGE"),
-            types.InlineKeyboardButton(text="↫ الوقت : ❲ {} ❳".format(0 if not status['time'] else data['time']), callback_data="NONETIME")
+            types.InlineKeyboardButton(text=": الرسالة ❲ {} ❳".format(None if not status['message'] else data['message'][0:6] + '..'), callback_data="SHOWMESSAGE"),
+            types.InlineKeyboardButton(text=": الوقت ❲ {} ❳".format(0 if not status['time'] else data['time']), callback_data="NONETIME")
         ], 
         [
-            types.InlineKeyboardButton(text="↫ : ❲ تعين حساب ❳" if status['account'] == False else '↫ : ❲ تغير حساب ❳', callback_data="ACCOUNT_MANGE"), 
-            types.InlineKeyboardButton(text="↫ : ❲ تعين رسالة ❳" if status['message'] == False else "↫ : ❲ تغير رسالة ❳", callback_data="MESSAGE_MANGER")
+            types.InlineKeyboardButton(text="❲ تعين حساب ❳" if status['account'] == False else '↫ : ❲ تغير حساب ❳', callback_data="ACCOUNT_MANGE"), 
+            types.InlineKeyboardButton(text="❲ تعين رسالة ❳" if status['message'] == False else "↫ : ❲ تغير رسالة ❳", callback_data="MESSAGE_MANGER")
         ], 
         [
-            types.InlineKeyboardButton(text="↫ : ❲ تعين وقت ❳" if status['time'] == False else "↫ : ❲ تغير وقت ❳", callback_data="TIME_MANGER"), 
+            types.InlineKeyboardButton(text="❲ تعين وقت ❳" if status['time'] == False else "↫ : ❲ تغير وقت ❳", callback_data="TIME_MANGER"), 
         ], 
         [
-            types.InlineKeyboardButton(text="↫ : ❲  عرض المجموعات ❳", callback_data="SHOW_CHAT"), 
-            types.InlineKeyboardButton(text="↫ : ❲ اضافة مجموعة ❳", callback_data="ADD_CHAT")
+            types.InlineKeyboardButton(text="❲  عرض المجموعات ❳", callback_data="SHOW_CHAT"), 
+            types.InlineKeyboardButton(text="❲ اضافة مجموعة ❳", callback_data="ADD_CHAT")
         ],[
             types.InlineKeyboardButton(text="❲ R ❳", url='t.me/RR8R9')
         ]
