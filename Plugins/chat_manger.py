@@ -6,14 +6,27 @@ import asyncio
 from Plugins.helpers import *
 from Config import database
 
-# Pyrogram filters
+HOME_MESSAGE = {
+    'GET_CHAT_LINK': 'يرجى إرسال رابط المجموعة العامة أو الخاصة:',
+    'WITH_CHECK_LINK': 'جارٍ التحقق من الرابط...',
+    'LINK_INVALID': 'الرابط غير صالح، يرجى التأكد من صحة الرابط والمحاولة مرة أخرى.',
+    'CHAT_TYPE_INVALID': 'نوع الدردشة غير صالح. يجب أن يكون نوع الدردشة مجموعة أو مجموعة سوبر.',
+    'DONE_ADD_CHAT': 'تم إضافة المجموعة بنجاح. المجموعات الحالية: {}',
+    'SHOW_CHAT': 'قائمة المجموعات الحالية:',
+    'WITH_DELETE_CHAT': 'جارٍ حذف المجموعة...'
+}
+
+def BACK():
+    return types.InlineKeyboardMarkup(
+        [[types.InlineKeyboardButton("رجوع", callback_data="BACK")]]
+    )
+
 def IS_SPLIT(data):
     def func(flt, _, query: types.CallbackQuery):
         return query.data.split('|')[0] == flt.data
     
     return filters.create(func, data=data)
 
-# ON Add New Chat
 @Client.on_callback_query(filters.regex('^ADD_CHAT$'))
 async def ON_ADD_CHAT(app: Client, query: types.CallbackQuery):
     await query.edit_message_text(
@@ -31,10 +44,8 @@ async def ON_ADD_CHAT(app: Client, query: types.CallbackQuery):
         return
     
     chat_link = data.text
-    # With Check Message
     message_data = await app.send_message(chat_id=query.message.chat.id, text=HOME_MESSAGE['WITH_CHECK_LINK'])
 
-    # Check Chat Link
     try:
         chat_data = await app.get_chat(chat_link)
     except Exception as e:
@@ -44,7 +55,6 @@ async def ON_ADD_CHAT(app: Client, query: types.CallbackQuery):
         )
         return
 
-    # Check Chat Types
     if chat_data.type not in [enums.ChatType.GROUP, enums.ChatType.SUPERGROUP]:
         await app.edit_message_text(
             chat_id=query.message.chat.id, message_id=message_data.id, 
@@ -61,14 +71,12 @@ async def ON_ADD_CHAT(app: Client, query: types.CallbackQuery):
         text=HOME_MESSAGE['DONE_ADD_CHAT'].format(len(datas['chats'])), reply_markup=BACK()
     )
 
-# ON Show Chats 
 @Client.on_callback_query(filters.regex('^SHOW_CHAT$'))
 async def ON_SHOW_CHAT(app: Client, query: types.CallbackQuery):
     await query.edit_message_text(
         text=HOME_MESSAGE['SHOW_CHAT'], reply_markup=SHOW_CHAT()
     )
 
-# On Delete Chats
 @Client.on_callback_query(IS_SPLIT('delete_chat'))
 async def ON_DELETE_CHAT(app: Client, query: types.CallbackQuery):
     chat_identifier = query.data.split('|')[1]
