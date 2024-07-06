@@ -31,7 +31,7 @@ def HONE_KEYBOARD():
             types.InlineKeyboardButton(text="↫ : ❲  عرض المجموعات ❳", callback_data="SHOW_CHAT"), 
             types.InlineKeyboardButton(text="↫ : ❲ اضافة مجموعة ❳", callback_data="ADD_CHAT")
         ],[
-            types.InlineKeyboardButton(text="❲ D E V ❳", url='t.me/r_afx')
+            types.InlineKeyboardButton(text="❲ R ❳", url='t.me/RR8R9')
         ]
 
     ])
@@ -108,7 +108,7 @@ HOME_MESSAGE = {
             u"↫ : انتضر جاري التحقق من الحساب"
             u"", 
     'ACCOUNT_ERROR':
-            u"↫ : عذرن الجلسة غير صالحة "
+            u"↫ : عذراً الجلسة غير صالحة "
             u"", 
     'DONE_ADD_ACCOUNT':
             u"↫ : تم تعين الحساب بي نجاح \n"
@@ -163,7 +163,7 @@ HOME_MESSAGE = {
             u"↫ : انتضر جاري حذف المجموعة" 
             u"",  
     'ERROR_NO_DATA':
-            u"↫ : عذرن لم تقم بي تعين البيانات الازمة"
+            u"↫ : عذراً لم تقم بي تعين البيانات الازمة"
             u"", 
 
 
