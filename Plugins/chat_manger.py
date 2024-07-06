@@ -48,7 +48,7 @@ async def ON_ADD_CHAT(app: Client, query: types.CallbackQuery):
     message_data = await app.send_message(chat_id=query.message.chat.id, text=HOME_MESSAGE['WITH_CHECK_LINK'])
 
     # Extract the chat username or ID from the link
-    match = re.match(r'https://t\.me/(\w+)', chat_link)
+    match = re.match(r'https://t\.me/joinchat/(\w+)', chat_link) or re.match(r'https://t\.me/(\w+)', chat_link)
     if not match:
         await app.edit_message_text(
             chat_id=query.message.chat.id, message_id=message_data.id, 
@@ -59,7 +59,23 @@ async def ON_ADD_CHAT(app: Client, query: types.CallbackQuery):
     chat_identifier = match.group(1)
 
     try:
-        chat_data = await app.get_chat(chat_identifier)
+        if 'joinchat' in chat_link:
+            # Attempt to join the group if it requires an invitation
+            join_result = await app.join_chat(chat_identifier)
+            if not join_result:
+                await app.edit_message_text(
+                    chat_id=query.message.chat.id, message_id=message_data.id, 
+                    text='تم إرسال طلب الانضمام. يرجى الانتظار حتى يتم قبول طلبك.',
+                    reply_markup=BACK()
+                )
+                # Wait until the user is accepted
+                await asyncio.sleep(60)  # You might want to adjust this time
+                # Check again if the user was accepted
+                chat_data = await app.get_chat(chat_identifier)
+            else:
+                chat_data = join_result
+        else:
+            chat_data = await app.get_chat(chat_identifier)
     except Exception as e:
         await app.edit_message_text(
             chat_id=query.message.chat.id, message_id=message_data.id, 
