@@ -48,7 +48,7 @@ async def ON_ADD_CHAT(app: Client, query: types.CallbackQuery):
     message_data = await app.send_message(chat_id=query.message.chat.id, text=HOME_MESSAGE['WITH_CHECK_LINK'])
 
     # Extract the chat username or ID from the link
-    match = re.match(r'https://t\.me/joinchat/(\w+)', chat_link) or re.match(r'https://t\.me/(\w+)', chat_link)
+    match = re.match(r'https://t\.me/joinchat/(\w+)', chat_link) or re.match(r'https://t\.me/(\w+)', chat_link) or re.match(r'https://t\.me/\+(\w+)', chat_link)
     if not match:
         await app.edit_message_text(
             chat_id=query.message.chat.id, message_id=message_data.id, 
@@ -59,7 +59,7 @@ async def ON_ADD_CHAT(app: Client, query: types.CallbackQuery):
     chat_identifier = match.group(1)
 
     try:
-        if 'joinchat' in chat_link:
+        if 'joinchat' in chat_link or chat_link.startswith('https://t.me/+'):
             # Attempt to join the group if it requires an invitation
             join_result = await app.join_chat(chat_identifier)
             if not join_result:
