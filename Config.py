@@ -8,10 +8,10 @@ from Utils.database import Database
 
 # Bot Config
 class config:
-    API_KEY : str = "<API_KEY>" # The API key or Bot Token
-    API_HASH: str = "4n4sxxxxxxxxxxxxxxxxx" # UsrBot Api Hash
-    API_ID  : int = 1234500 # User Bot Api Id
-    SUDO    : int = 000000000 # Sudo Id
+    API_KEY : str = "6075328156:AAFRc5hBwNyf6twmDYaq7MHGXEs8yVc8Dzo" # The API key or Bot Token
+    API_HASH: str = "bf3e98d2c351e4ad06946b4897374a1e" # UsrBot Api Hash
+    API_ID  : int = 8934899 # User Bot Api Id
+    SUDO    : int = 1854384004 # Sudo Id
  
 
 
