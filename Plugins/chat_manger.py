@@ -1,6 +1,7 @@
 from pyrogram import Client, types, filters, enums
 from pyromod.exceptions import ListenerTimeout
 import asyncio
+import re
 
 # Import plugins and helpers
 from Plugins.helpers import *
@@ -43,11 +44,22 @@ async def ON_ADD_CHAT(app: Client, query: types.CallbackQuery):
     if not database.GET_TEMP('onListen'):
         return
     
-    chat_link = data.text
+    chat_link = data.text.strip()
     message_data = await app.send_message(chat_id=query.message.chat.id, text=HOME_MESSAGE['WITH_CHECK_LINK'])
 
+    # Extract the chat username or ID from the link
+    match = re.match(r'https://t\.me/(\w+)', chat_link)
+    if not match:
+        await app.edit_message_text(
+            chat_id=query.message.chat.id, message_id=message_data.id, 
+            text=HOME_MESSAGE['LINK_INVALID'], reply_markup=BACK()
+        )
+        return
+
+    chat_identifier = match.group(1)
+
     try:
-        chat_data = await app.get_chat(chat_link)
+        chat_data = await app.get_chat(chat_identifier)
     except Exception as e:
         await app.edit_message_text(
             chat_id=query.message.chat.id, message_id=message_data.id, 
