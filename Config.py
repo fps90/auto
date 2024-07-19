@@ -11,7 +11,7 @@ class config:
     API_KEY : str = "5204315005:AAFTcY_4CtLVdbN1d-NtQN752dRIdLUKIIA" # The API key or Bot Token
     API_HASH: str = "bf3e98d2c351e4ad06946b4897374a1e" # UsrBot Api Hash
     API_ID  : int = 8934899 # User Bot Api Id
-    SUDO    : int = 5204315005 # Sudo Id
+    SUDO    : int = 6597393738 # Sudo Id
  
 
 
